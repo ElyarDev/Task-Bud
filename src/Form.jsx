@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const Form = () => {
   const [newItemName, setNewItemName] = useState('');
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { mutate: creatTask, isLoading } = useMutation({
     mutationFn: (taskTitle) => customFetch.post('/', { title: taskTitle }),
