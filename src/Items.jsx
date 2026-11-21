@@ -3,9 +3,12 @@ import SingleItem from './SingleItem';
 import customFetch from './utils';
 
 const Items = () => {
-  const { isLoading, data } = useQuery({
+  const { isLoading, data, isError, error } = useQuery({
     queryKey: ['tasks'],
-    queryFn: () => customFetch.get('/')
+    queryFn: async () => {
+      const { data } = await customFetch.get('/sdfs');
+      return data;
+    }
   });
 
   // WHILE LOADING DATA
@@ -15,9 +18,21 @@ const Items = () => {
     )
   }
 
+  // ERROR HANDLING
+  if (isError) {
+    return (
+      <p style={{ marginTop: '1rem' }}>There was an error</p>
+    )
+  }
+  // if (error) {
+  //   return (
+  //     <p style={{ marginTop: '1rem' }}>{error.response.data}</p>
+  //   )
+  // }
+
   return (
     <div className='items'>
-      {data.data.taskList.map((item) => {
+      {data.taskList.map((item) => {
         return <SingleItem key={item.id} item={item} />;
       })}
     </div>
