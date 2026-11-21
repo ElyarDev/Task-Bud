@@ -6,7 +6,7 @@ const Items = () => {
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-      const { data } = await customFetch.get('/sdfs');
+      const { data } = await customFetch.get('/');
       return data;
     }
   });
